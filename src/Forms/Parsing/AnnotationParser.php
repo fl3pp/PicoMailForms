@@ -1,22 +1,8 @@
 <?php
 
-namespace PicoMailPlugin\Forms;
+namespace PicoMailPlugin\Forms\Parsing;
 
-class Annotation {
-    public $start;
-    public $length;
-    public $raw;
-    public $content;
-
-    public function __construct($content, $raw, $start) {
-        $this->start = $start;
-        $this->length = strlen($content);
-        $this->raw = $raw;
-        $this->content = $content;
-    }
-}
-
-class AnnotationFinder {
+class AnnotationParser {
 
     function getAnnotation($text, $annotationName, &$annotation) : bool {
         if (!$this->getMatch($this->getRegex($annotationName), $text, $match)) {
