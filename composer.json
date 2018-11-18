@@ -11,7 +11,8 @@
     "autoload": {
         "psr-4": { 
             "PicoMailPlugin\\": "src/"
-        }
+        },
+	"classmap": ["PicoMailFormsPlugin.php"]
     },
     "extra": {
         "installer-name": "PicoMailFormsPlugin"
