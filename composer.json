@@ -1,4 +1,7 @@
 {
+    "name": "jflepp/picomailformsplugin",
+    "description": "A mail plugin with forms for pico",
+    "type": "pico-plugin",
     "require": {
         "phpmailer/phpmailer": "^6.0"
     },
