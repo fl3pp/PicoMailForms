@@ -1,8 +1,8 @@
 <?php
-include 'src/Forms/FormAction.php';
-include 'src/Mail/MailAction.php';
 
-class PicoMailFormsPlugin extends AbstractPicoPlugin {
+namespace PicoMailFormsPlugin;
+
+class Picomailformsplugin extends AbstractPicoPlugin {
     private $config;
 
     public function onConfigLoaded(&$config) {
