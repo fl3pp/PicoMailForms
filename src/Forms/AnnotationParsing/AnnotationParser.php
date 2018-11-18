@@ -1,6 +1,6 @@
 <?php
 
-namespace PicoMailPlugin\Forms\Parsing;
+namespace PicoMailPlugin\Forms\AnnotationParsing;
 
 class AnnotationParser {
 

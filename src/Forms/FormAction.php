@@ -1,8 +1,11 @@
 <?php
+
 namespace PicoMailPlugin\Forms;
 
-include 'AnnotationFinder.php';
-include 'HtmlFormBuilder.php';
+use PicoMailPlugin\Forms\AnnotationParsing\AnnotationParser;
+use PicoMailPlugin\Forms\AnnotationParsing\Annotation;
+use PicoMailPlugin\Forms\HtmlFormBuilder;
+
 
 class FormAction {
     private $config;
@@ -61,6 +64,5 @@ class FormAction {
     private function replaceForm(&$content, $form, $htmlBuilder) {
         $content = substr_replace($content, '', $form->start, $form->length);
         $content = substr_replace($content, $htmlBuilder->createHtml(), $form->start, 0);
-    }
-    
+    }   
 }

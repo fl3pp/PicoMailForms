@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use PicoMailPlugin\Forms\Parsing\AnnotationParser;
+use PicoMailPlugin\Forms\AnnotationParsing\AnnotationParser;
 
 class AnnotationParserTest extends TestCase {
 
