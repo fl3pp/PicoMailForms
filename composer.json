@@ -12,5 +12,8 @@
         "psr-4": { 
             "PicoMailPlugin\\": "src/"
         }
+    },
+    "extra": {
+        "installer-name": "PicoMailFormsPlugin"
     }
 }

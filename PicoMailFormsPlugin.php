@@ -1,8 +1,6 @@
 <?php
 
-namespace PicoMailFormsPlugin;
-
-class Picomailformsplugin extends AbstractPicoPlugin {
+class PicoMailFormsPlugin extends AbstractPicoPlugin {
     private $config;
 
     public function onConfigLoaded(&$config) {
@@ -16,9 +14,9 @@ class Picomailformsplugin extends AbstractPicoPlugin {
 
     private function getAction() {
         if (array_key_exists('IsPicoMailSend', $_POST) && $_POST['IsPicoMailSend'] == 'true') {
-            return new MailAction($this->config);
+            return new PicoMailPlugin\MailAction($this->config);
         } else {
-            return new FormAction($this->config);
+            return new PicoMailPlugin\FormAction($this->config);
         }
     }
        
