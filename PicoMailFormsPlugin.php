@@ -2,7 +2,7 @@
 include 'src/Forms/FormAction.php';
 include 'src/Mail/MailAction.php';
 
-class PicoMailForms extends AbstractPicoPlugin {
+class PicoMailFormsPlugin extends AbstractPicoPlugin {
     private $config;
 
     public function onConfigLoaded(&$config) {
