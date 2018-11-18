@@ -1,23 +1,19 @@
 <?php
 
 class PicoMailFormsPlugin extends AbstractPicoPlugin {
-    private $config;
+    private $plugin;
+
+    public function __construct($pico) {
+        $postWrapper = new \PicoMailPlugin\Wrappers\PostWrapper();
+        $this->plugin = new \PicoMailPlugin\Plugin($postWrapper);
+        self::__construct($pico);
+    }
 
     public function onConfigLoaded(&$config) {
-        $this->config = $config;
+        $this->plugin->setConfig($config);
     }
 
     public function onContentPrepared(&$content) {
-        $action = $this->getAction();
-        $action->run($content);
+        $this->plugin->prepareContent($content);
     }
-
-    private function getAction() {
-        if (array_key_exists('IsPicoMailSend', $_POST) && $_POST['IsPicoMailSend'] == 'true') {
-            return new PicoMailPlugin\MailAction($this->config);
-        } else {
-            return new PicoMailPlugin\FormAction($this->config);
-        }
-    }
-       
 }
