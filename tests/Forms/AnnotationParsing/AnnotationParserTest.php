@@ -30,6 +30,17 @@ class AnnotationParserTest extends TestCase {
         $this->assertSame($annotation->content, 'test');
     }
 
+    public function test_getAnnotation_TwoAnnotations_ReturnsFirstAnnotation() : void {
+        $testee = new AnnotationParser();
+        $text = '[text]test[/text][text]another[/text]';
+        $annotationName = 'text';
+        
+        $result = $testee->getAnnotation($text, $annotationName, $annotation);
+        
+        $this->assertTrue($result);
+        $this->assertSame($annotation->content, 'test');
+    }
+    
     public function test_getAnnotation_WithoutEnding_ReturnsFalse() : void {
         $testee = new AnnotationParser();
         $text = 'asdf[text]test[text]';
