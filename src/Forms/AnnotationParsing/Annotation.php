@@ -7,11 +7,13 @@ class Annotation {
     public $Raw;
     public $Start;
     public $Length;
+    public $Traits;
 
-    public function __construct($content, $raw, $start) {
+    public function __construct($content, $raw, $start, $traits) {
         $this->Content = $content;
         $this->Raw = $raw;
         $this->Start = $start;
         $this->Length = strlen($raw);
+        $this->Traits = $traits;
     }
 }

@@ -29,6 +29,20 @@ class AnnotationParserTest extends TestCase {
         $this->assertSame($annotation->Content, 'content');
     }
 
+    public function test_getAnnotation_WithTwoTraits_ReturnsAnnotation() : void {
+        $testee = new AnnotationParser();
+        $text = '[text mail usage]content[/text]';
+        $annotationName = 'text';
+
+        $result = $testee->getAnnotation($text, $annotationName, $annotation);
+                
+        $this->assertTrue($result);
+        $this->assertSame($annotation->Content, 'content');
+        $this->assertSame($annotation->Traits[0], 'mail');
+        $this->assertSame($annotation->Traits[1], 'usage');
+        $this->assertSame(2, count($annotation->Traits));
+    }
+
     public function test_getAnnotation_PrependedText_ReturnsAnnotation() : void {
         $testee = new AnnotationParser();
         $text = 'asdf[text]test[/text]';

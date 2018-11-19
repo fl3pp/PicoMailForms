@@ -13,7 +13,7 @@ class AnnotationParser {
     }
 
     private function getRegex($annotation) {
-        return '/\['.$annotation.'\](?<content>.*?)\[\/'.$annotation.'\]/si';
+        return '/\['.$annotation.'(?<traits>[\w ]*)\](?<content>.*?)\[\/'.$annotation.'\]/si';
     }
 
     private function getMatch($regex, $text, &$match) {
@@ -21,6 +21,16 @@ class AnnotationParser {
     }
 
     private function createAnnotation($match) {
-        return new Annotation($match['content'][0], $match[0][0], $match[0][1]);
-    }   
+        $traits = $this->getTraits($match['traits'][0]);
+        return new Annotation($match['content'][0], $match[0][0], $match[0][1], $traits);
+    }
+
+    private function getTraits($traitsString) {
+        $traits = array();
+        foreach (explode(' ', $traitsString) as $trait) {
+            if (strlen($trait) == 0) continue;
+            array_push($traits, $trait);
+        }
+        return $traits;
+    }
 }
