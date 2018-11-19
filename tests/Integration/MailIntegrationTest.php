@@ -18,7 +18,6 @@ class MailIntegrationTest extends TestCase {
         $setup = new IntegrationTestSetup();
         $config = $setup->parseConfig(MailIntegrationTest::defaultConfig);
         $setup->Post->Data[PostConsts::KeyIsPicoMailSend] = PostConsts::ValueTrue;
-        $setup->Post->Data[PostConsts::KeySubject] = "the subject";
         $testee = $setup->createTestee();
 
         $testee->setConfig($config);
@@ -48,6 +47,9 @@ class MailIntegrationTest extends TestCase {
         
         $result = $setup->MailSender->Mails[0];
         $this->assertSame('Mail@Visitor.com', $result->To['Visitor']);
+        $contentExpected = '<html><body><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table></body></html>';
+        $this->assertSame($contentExpected, $result->Body);
+        $this->assertSame('the subject', $result->Subject);
     }
     
     

@@ -12,50 +12,50 @@ class ContentCreator {
     }
     
     public function setContent($mail) {
-        $mail->Subject = $this->getSubject();
-        $mail->Body = $this->getBody();
-        $this->addReceiver($mail->Receivers);
+        $this->addSubject($mail);
+        $this->addBody($mail);
+        $this->addReceiver($mail);
     }
     
-    public function getSubject() : string {
-        return $this->post->getVariable(PostConsts::KeySubject);
+    public function addSubject($mail) {
+        $mail->Subject = $this->post->isVariableDefined(PostConsts::KeySubject) ?
+            $this->post->getVariable(PostConsts::KeySubject) : "Without subject";
     }
 
-    public function getBody() : string {
-        $body = '<html><body><table>';
+    public function addBody($mail) {
+        $mail->Body = '<html><body><table>';
         foreach ($this->getPostUserData() as $key => $value){
-            $body .= '<tr>';
-            $body .= "<td><b>$key</b></td>";
-            $body .= "<td>$value</td>";
-            $body .= '</tr>';
+            $mail->Body .= '<tr>';
+            $mail->Body .= "<td><b>$key</b></td>";
+            $mail->Body .= "<td>$value</td>";
+            $mail->Body .= '</tr>';
         }
-        $body .= '</table></body></html>';
-        return $body;
+        $mail->Body .= '</table></body></html>';
     }
 
-    public function addReceiver($receivers) {
+    public function addReceiver($mail) {
         if (!$this->post->isVariableDefined(PostConsts::KeyMail)) {
             return;
         }
 
-        $mail = $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyMail));
-
-        $firstName = $this->post->isVariableDefined(PostConsts::KeyFirstName) ?
-            $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyFirstName)) : '';
-        $lastName = $this->post->isVariableDefined(PostConsts::KeyLastName) ?
-            $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyLastName)) : '';
+        $userMail = $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyMail));
         
-        if ($firstName == '' && $lastName == '') {
-            $name = $mail;
-        } else if ($firstName == '') {
-            $name = $lastName;
-        } else if ($lastName == '') {
-            $name = $firstName;
+        $userFirstName = $this->post->isVariableDefined(PostConsts::KeyFirstName) ?
+        $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyFirstName)) : '';
+        $userLastName = $this->post->isVariableDefined(PostConsts::KeyLastName) ?
+        $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyLastName)) : '';
+        
+        if ($userFirstName == '' && $userLastName == '') {
+            $userName = $userMail ;
+        } else if ($userFirstName == '') {
+            $userName = $userLastName;
+        } else if ($userLastName == '') {
+            $userName = $userFirstName;
         } else {
-            $name = $firstName . ' ' . $lastName;
+            $userName = $userFirstName . ' ' . $userLastName;
         }
 
-        $receivers[$name] = $value;
+        $mail->To[$userName] = $userMail;
     }
 
     private function getPostUserData() {
