@@ -6,16 +6,21 @@ use PicoMailPlugin\Test\Integration\Setup\TestMailSender;
 use PicoMailPlugin\Test\Integration\Setup\TestPost;
 
 class IntegrationTestSetup {
-    private $post;
-    private $mailSender;
+    public $Post;
+    public $MailSender;
 
     public function __construct() {
-        $this->post = new TestPost();
-        $this->mailSender = new TestMailSender();
+        $this->Post = new TestPost();
+        $this->MailSender = new TestMailSender();
+    }
+
+    public function parseConfig($config) {
+        $parser = new \Symfony\Component\Yaml\Parser();
+        return $parser->parse($config) ?: array();
     }
 
     public function createTestee() {
-        return new \PicoMailPlugin\Plugin($this->post, $this->mailSender);
+        return new \PicoMailPlugin\Plugin($this->Post, $this->MailSender);
     }
 
 }

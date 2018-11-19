@@ -47,7 +47,7 @@ class ContentCreator {
 
     private function getPostUserData() {
         $data = array();
-        foreach ($this->post-getVariables() as $key => $value) {
+        foreach ($this->post->getVariables() as $key => $value) {
             if (substr($key, 0, strlen(PostConsts::PrefixUserdata)) != PostConsts::PrefixUserdata) continue;
             $data[substr($key, strlen(PostConsts::PrefixUserdata))] = $value;
         }

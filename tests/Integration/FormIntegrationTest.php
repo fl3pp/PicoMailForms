@@ -3,7 +3,7 @@
 use PicoMailPlugin\Test\Integration\Setup\IntegrationTestSetup;
 use PHPUnit\Framework\TestCase;
 
-class IntegrationTest extends TestCase {
+class FormIntegrationTest extends TestCase {
     
     public function test_SimpleForm_AddsHtmlForm() {
         $setup = new IntegrationTestSetup();

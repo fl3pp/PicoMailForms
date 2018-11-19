@@ -4,7 +4,7 @@ namespace PicoMailPlugin\Mail;
 
 class Mail {
     public $IsSmtp;
-    public $SmptSecure;
+    public $SmtpSecure;
     public $SmtpAuth;
     public $Port;
 

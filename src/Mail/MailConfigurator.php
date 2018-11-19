@@ -13,12 +13,13 @@ class MailConfigurator {
         $this->addDefaultReceiver($mail);
         $this->setFromName($mail);
         $this->setHost($mail);
-        $this->setSmptAuth($mail);
+        $this->setSmtpAuth($mail);
         $this->setUserName($mail);
         $this->setPassword($mail);
-        $this->setSmptSecure($mail);
+        $this->setSmtpSecure($mail);
         $this->setPort($mail);
         $this->setIsHtml($mail);
+        $this->setIsSmtp($mail);
     }
 
     private function addDefaultReceiver() {
@@ -28,7 +29,7 @@ class MailConfigurator {
         }
         
         $defaultName = $this->config['DefaultReceiverName'];
-        $defaultMail = $this->config['DefaultReceiverName'];
+        $defaultMail = $this->config['DefaultReceiverMail'];
         $mail->To[$defaultName] = $defaultMail;
     }
     
@@ -40,7 +41,7 @@ class MailConfigurator {
         $mail->Host = $this->config['Host'];
     }
 
-    private function setSmptAuth($mail) {
+    private function setSmtpAuth($mail) {
         $mail->SmtpAuth = true;
     }
 
@@ -52,15 +53,19 @@ class MailConfigurator {
         $mail->Password = $this->config['Password'];
     }
 
-    private function setSmptSecure($mail) {
+    private function setSmtpSecure($mail) {
         $mail->SmtpSecure = 'tls';
     }
 
     private function setPort($mail) {
-        $mail->Port = 587;
+        $mail->Port = $this->config['Port'];
     }
 
     private function setIsHtml($mail) {
         $mail->IsHtml = true;
+    }
+
+    private function setIsSmtp($mail) {
+        $mail->IsSmtp = true;
     }
 }
