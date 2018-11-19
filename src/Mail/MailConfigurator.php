@@ -3,21 +3,64 @@
 namespace PicoMailPlugin\Mail;
 
 class MailConfigurator {
-    
-    public function configureMail($mail, $staticConfiguration, $contentCreator) {
-        $mail->isSMTP();
+    private $config;
 
-        $mail->setFrom($staticConfiguration->getUserName(), $staticConfiguration->getFromName());
-        $mail->Host = $staticConfiguration->getHost();
-        $mail->SMTPAuth = $staticConfiguration->getSMTPAuth();
-        $mail->Username = $staticConfiguration->getUserName();
-        $mail->Password = $staticConfiguration->getPassword();
-        $mail->SMTPSecure = $staticConfiguration->getSMPTSecure();
-        $mail->Port = $staticConfiguration->getPort();
-        $mail->isHtml($staticConfiguration->isHtml());
+    public function __construct($config) {
+        $this->config = $config['PicoMail'];
+    }
+
+    public function setConfiguration($mail) {
+        $this->addDefaultReceiver($mail);
+        $this->setFromName($mail);
+        $this->setHost($mail);
+        $this->setSmptAuth($mail);
+        $this->setUserName($mail);
+        $this->setPassword($mail);
+        $this->setSmptSecure($mail);
+        $this->setPort($mail);
+        $this->setIsHtml($mail);
+    }
+
+    private function addDefaultReceiver() {
+        if (!array_key_exists('DefaultReceiverName', $this->config)
+         || !array_key_exists('DefaultReceiverMail', $this->config)) {
+            return;
+        }
         
-        $mail->Subject = $contentCreator->getSubject();
-        $mail->Body = $contentCreator->getBody();
+        $defaultName = $this->config['DefaultReceiverName'];
+        $defaultMail = $this->config['DefaultReceiverName'];
+        $mail->To[$defaultName] = $defaultMail;
+    }
+    
+    private function setFromName($mail) {
+        $mail->From = $this->config['SenderName'];
+    }
+    
+    private function setHost($mail) {
+        $mail->Host = $this->config['Host'];
+    }
+
+    private function setSmptAuth($mail) {
+        $mail->SmtpAuth = true;
+    }
+
+    private function setUserName($mail) {
+        $mail->Username = $this->config['UserName'];
+    }
+    
+    private function setPassword($mail) {
+        $mail->Password = $this->config['Password'];
+    }
+
+    private function setSmptSecure($mail) {
+        $mail->SmtpSecure = 'tls';
+    }
+
+    private function setPort($mail) {
+        $mail->Port = 587;
+    }
+
+    private function setIsHtml($mail) {
+        $mail->IsHtml = true;
     }
 }
-
