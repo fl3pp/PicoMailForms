@@ -24,7 +24,8 @@ class FormAction {
             $htmlBuilder->addHiddenValue(PostConsts::KeySubject, $this->getSubject($form->Content));
 
             foreach ($this->getTexts($content) as $text) {
-                $htmlBuilder->addText($text);
+                $htmlBuilder->addText($text->Content);
+                $this->processTraits($text, $htmlBuilder);
             }
             
             $htmlBuilder->addHiddenValue(PostConsts::KeyIsPicoMailSend, PostConsts::ValueTrue);
@@ -57,13 +58,25 @@ class FormAction {
         $texts = array();
         while ($this->annotationParser->getAnnotation($contentToSearch, 'text', $match)) {
             $contentToSearch = substr($contentToSearch, $match->Start + $match->Length);
-            array_push($texts, $match->Content);
+            array_push($texts, $match);
         }
         return $texts;
+    }
+
+    private function processTraits($text, $htmlBuilder) {
+        foreach ($text->Traits as $trait) {
+            if (!strcasecmp($trait, PostConsts::TraitMail)) {
+                $htmlBuilder->addHiddenValue(PostConsts::KeyMail, $text->Content);
+            } else if (!strcasecmp($trait, PostConsts::TraitFirstName)) {
+                $htmlBuilder->addHiddenValue(PostConsts::KeyFirstName, $text->Content);
+            } else if (!strcasecmp($trait, PostConsts::TraitLastName)) {
+                $htmlBuilder->addHiddenValue(PostConsts::KeyLastName, $text->Content);
+            }
+        }
     }
 
     private function replaceForm(&$content, $form, $htmlBuilder) {
         $content = substr_replace($content, '', $form->Start, $form->Length);
         $content = substr_replace($content, $htmlBuilder->createHtml(), $form->Start, 0);
-    }   
+    }
 }
