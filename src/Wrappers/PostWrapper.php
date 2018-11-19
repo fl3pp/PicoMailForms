@@ -1,5 +1,7 @@
 <?php
 
+namespace PicoMailPlugin\Wrappers;
+
 class PostWrapper {
 
     public function getVariable(string $key) : string {

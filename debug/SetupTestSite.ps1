@@ -8,11 +8,13 @@ if (Test-Path $appDirectory) {
     Remove-Item -Recurse -Force $appDirectory;
 }
 New-Item -ItemType Directory $appDirectory;
-Copy-Item $PSScriptRoot\debug\index.md $appDirectory\content\index.md
 
 cd $appDirectory;
 
 composer create-project picocms/pico-composer .
-composer require jflepp/picomailformsplugin
+Remove-Item -Recurse -Force "C:\Users\flja\AppData\Local\Composer\vcs\https---github.com-jflepp-PicoMailForms.git"
+composer require jflepp/picomailformsplugin dev-master
+
+Copy-Item $PSScriptRoot\index.md $appDirectory\content\index.md
 
 php -S localhost:80

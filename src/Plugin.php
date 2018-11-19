@@ -21,9 +21,9 @@ class Plugin {
     public function prepareContent(&$content) {
         if ($this->post->isVariableDefined(PostKeys::IsPicoMailSend) 
          && $this->post->getVariable(PostKeys::IsPicoMailSend) == PostKey::TrueValue) {
-            $action = new PicoMailPlugin\Mail\MailAction($this->config, $this->mailSender, $this->post);
+            $action = new \PicoMailPlugin\Mail\MailAction($this->config, $this->mailSender, $this->post);
         } else {
-            $action = new PicoMailPlugin\Forms\FormAction($this->config);
+            $action = new \PicoMailPlugin\Forms\FormAction($this->config);
         }
 
         $action->run($content);

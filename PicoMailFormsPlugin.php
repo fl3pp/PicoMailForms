@@ -5,8 +5,9 @@ class PicoMailFormsPlugin extends AbstractPicoPlugin {
 
     public function __construct($pico) {
         $postWrapper = new \PicoMailPlugin\Wrappers\PostWrapper();
-        $this->plugin = new \PicoMailPlugin\Plugin($postWrapper);
-        self::__construct($pico);
+        $mailSender = new \PicoMailPlugin\Wrappers\MailSender();
+        $this->plugin = new \PicoMailPlugin\Plugin($postWrapper, $mailSender);
+        parent::__construct($pico);
     }
 
     public function onConfigLoaded(&$config) {

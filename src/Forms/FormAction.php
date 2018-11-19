@@ -13,7 +13,7 @@ class FormAction {
 
     public function __construct($config) {
         $this->config = $config;
-        $this->annotationFinder = new AnnotationFinder();
+        $this->annotationFinder = new AnnotationParser();
     }
         
     public function run(&$content) {

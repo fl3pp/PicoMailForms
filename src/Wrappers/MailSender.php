@@ -1,6 +1,6 @@
 <?php
 
-namespace PicoMailPlugin;
+namespace PicoMailPlugin\Wrappers;
 
 use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 use PHPMailer\PHPMailer\Exception as SMPTException;
