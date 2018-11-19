@@ -12,6 +12,7 @@ Copy-Item $PSScriptRoot\debug\index.md $appDirectory\content\index.md
 
 cd $appDirectory;
 
+
 composer create-project picocms/pico-composer .
 composer require jflepp/picomailformsplugin
 
