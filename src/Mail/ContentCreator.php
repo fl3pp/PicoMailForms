@@ -10,27 +10,30 @@ class ContentCreator {
     public function __construct($post) {
         $this->post = $post;
     }
-    
-    public function setContent($mail) {
-        $this->addSubject($mail);
-        $this->addBody($mail);
-        $this->addReceiver($mail);
-    }
-    
-    public function addSubject($mail) {
-        $mail->Subject = $this->post->isVariableDefined(PostConsts::KeySubject) ?
+        
+    public function getSubject() {
+        return $this->post->isVariableDefined(PostConsts::KeySubject) ?
             $this->post->getVariable(PostConsts::KeySubject) : "Without subject";
     }
 
-    public function addBody($mail) {
-        $mail->Body = '<html><body><table>';
+    public function getResultMessage($success) {
+        return '<p>'.
+            ($success 
+            ? $this->post->getVariable(PostConsts::KeySuccess)
+            : $this->post->getVariable(PostConsts::KeyFailed))
+            .'</p>';
+    }
+
+    public function getDataTable() {
+        $body = '<table>';
         foreach ($this->getPostUserData() as $key => $value){
-            $mail->Body .= '<tr>';
-            $mail->Body .= "<td><b>$key</b></td>";
-            $mail->Body .= "<td>$value</td>";
-            $mail->Body .= '</tr>';
+            $body .= '<tr>';
+            $body .= "<td><b>$key</b></td>";
+            $body .= "<td>$value</td>";
+            $body .= '</tr>';
         }
-        $mail->Body .= '</table></body></html>';
+        $body .= '</table>';
+        return $body;
     }
 
     public function addReceiver($mail) {

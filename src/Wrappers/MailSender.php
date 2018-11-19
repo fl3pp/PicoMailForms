@@ -25,7 +25,7 @@ class MailSender {
         }
 
         $mail->Subject = $mailInfo->Subject;
-        $mail->Body = $mailInfo->Body;
+        $mail->Body = '<html><body>'.$mailInfo->Body.'</body></html>';
 
         try {
             $mail->send();

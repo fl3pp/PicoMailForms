@@ -61,7 +61,7 @@ class FormAction {
 
     private function getFailed($content) : string {
         if (!$this->annotationParser->getAnnotation($content, 'failed', $match)) {
-            return "An error occured while sending your message: '{error}'.";
+            return "An error occured while sending your message. Please contact the site administrator.";
         }
         return $match->Content;
     }

@@ -4,6 +4,7 @@ namespace PicoMailPlugin\Mail;
 
 use PicoMailPlugin\Mail\MailConfigurator;
 use PicoMailPlugin\Mail\Mail;
+use PicoMailPlugin\Mail\PageResponseCreator;
 
 class MailAction {
     private $config;
@@ -23,10 +24,16 @@ class MailAction {
         $mail = new Mail();
 
         $configurator->setConfiguration($mail);
-        $contentCreator->setContent($mail);
+        $mail->Subject = $contentCreator->getSubject();
+        $mail->Body .= $contentCreator->getResultMessage(true);
+        $mail->Body .= $contentCreator->getDataTable();
+        $contentCreator->addReceiver($mail);
 
-        $this->mailSender->sendMail($mail, $message);
-
-        $content = $message;
+        $sendSuccessfull = $this->mailSender->sendMail($mail, $resultMessage);
+        
+        $content = '';
+        $content .= '# ' . $contentCreator->getSubject() . "\r\n\r\n";
+        $content .= $contentCreator->getResultMessage($sendSuccessfull) . "\r\n\r\n";
+        $content .= $contentCreator->getDataTable();
     }
 }
