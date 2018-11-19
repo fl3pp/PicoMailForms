@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": { 
-            "PicoMailPlugin\\": "src/"
+            "PicoMailPlugin\\": "src/",
+            "PicoMailPlugin\\Test\\": "tests/"
         },
 	"classmap": ["PicoMailFormsPlugin.php"]
     },

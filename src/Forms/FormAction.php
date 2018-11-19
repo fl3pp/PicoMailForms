@@ -23,7 +23,7 @@ class FormAction {
             $htmlBuilder->addHiddenValue('meta_subject', $this->getSubject($form->content));
 
             foreach ($this->getTexts($content) as $text) {
-                $htmlBuilder->addText($text->content);
+                $htmlBuilder->addText($text);
             }
             
             $htmlBuilder->addSubmit();
