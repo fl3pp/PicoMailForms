@@ -3,7 +3,7 @@
 namespace PicoMailPlugin;
 
 class PostConsts {
-    const KeyIsPicoMailSend = 'IsPicoMailSend';
+    const KeyIsPicoMailSend = 'meta_picomailsend';
     const KeySubject = 'meta_subject';
     const KeyMail = 'meta_mail';
     const KeyFirstName = 'meta_firstname';

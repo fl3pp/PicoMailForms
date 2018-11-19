@@ -34,14 +34,27 @@ class ContentCreator {
     }
 
     public function addReceiver($receivers) {
-        foreach ($this->getPostUserData() as $key => $value) {
-            if ($key == 'userdata_name') {
-                $name = $value;
-            }
-            if ($key == 'userdata_mail') {
-                $mail = $value;
-            }
+        if (!$this->post->isVariableDefined(PostConsts::KeyMail)) {
+            return;
         }
+
+        $mail = $this->post->getVariable(PostConsts::KeyMail);
+
+        $firstName = $this->post->isVariableDefined(PostConsts::KeyFirstName) ?
+            $this->post->getVariable(PostConsts::KeyFirstName) : '';
+        $lastName = $this->post->isVariableDefined(PostConsts::KeyLastName) ?
+            $this->post->getVariable(PostConsts::KeyLastName) : '';
+        
+        if ($firstName == '' && $lastName == '') {
+            $name = $mail;
+        } else if ($firstName == '') {
+            $name = $lastName;
+        } else if ($lastName == '') {
+            $name = $firstName;
+        } else {
+            $name = $firstName . ' ' . $lastName;
+        }
+
         $receivers[$name] = $value;
     }
 
