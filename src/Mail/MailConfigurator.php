@@ -24,15 +24,13 @@ class MailConfigurator {
         $this->setIsSmtp($mail);
     }
 
-    private function addOperatorReceiver() {
-        if (!array_key_exists(MailConfigKeys::OperatorName, $this->config)
-         || !array_key_exists(MailConfigKeys::OperatorMail, $this->config)) {
+    public function addOperatorReceiver($mail) {
+        if (!array_key_exists(MailConfigKeys::OperatorMail, $this->config)) {
             return;
         }
         
-        $operatorName = $this->config[MailConfigKeys::OperatorName];
         $operatorMail = $this->config[MailConfigKeys::OperatorMail];
-        $mail->To[$operatorName] = $operatorMail;
+        $mail->To['Operator'] = $operatorMail;
     }
     
     private function setFromName($mail) {

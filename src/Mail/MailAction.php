@@ -21,19 +21,41 @@ class MailAction {
         $configurator = new MailConfigurator($this->config);
         $contentCreator = new ContentCreator($this->post);
 
-        $mail = new Mail();
-
-        $configurator->setConfiguration($mail);
-        $mail->Subject = $contentCreator->getSubject();
-        $mail->Body .= $contentCreator->getResultMessage(true);
-        $mail->Body .= $contentCreator->getDataTable();
-        $contentCreator->addReceiver($mail);
-
-        $sendSuccessfull = $this->mailSender->sendMail($mail, $resultMessage);
         
+        $subject = $contentCreator->getSubject();
+        $dataTable = $contentCreator->getDataTable();
+        $userSuccessMessage = $contentCreator->getResultMessage(true);
+        $userFailedMessage = $contentCreator->getResultMessage(false);
+        
+        # UserMail
+        $userMail = new Mail();
+        $configurator->setConfiguration($userMail);
+        $userMail->Subject = $subject;
+        $userMail->Body .= $userSuccessMessage;
+        $userMail->Body .= $dataTable;
+        $contentCreator->addReceiver($userMail);
+
+        $sendSuccessfull = $this->mailSender->sendMail($userMail, $resultMessage);
+        
+        # Page Content
         $content = '';
-        $content .= '# ' . $contentCreator->getSubject() . "\r\n\r\n";
-        $content .= $contentCreator->getResultMessage($sendSuccessfull) . "\r\n\r\n";
-        $content .= $contentCreator->getDataTable();
+        $content .= "# $subject\r\n\r\n";
+        $content .= $sendSuccessfull ? $userSuccessMessage : $userFailedMessage . "\r\n\r\n";
+        $content .= $dataTable;
+
+        # OperatorMail
+        $operatorMail = new Mail();
+        $configurator->setConfiguration($operatorMail);
+        $operatorMail->Subject = "The form '$subject' has been filled";
+        $operatorMail->Body .= "<p>";
+        $operatorMail->Body .= $sendSuccessfull 
+            ? "A user has successfully filled your form: " 
+            : "A error occured while a user tried to fill your form: ";
+        $operatorMail->Body .= $subject;
+        $operatorMail->Body .= "</p>";
+        if (!$sendSuccessfull) $operatorMail->Body .= "<p>ERROR: $resultMessage</p>";
+        $operatorMail->Body .= $dataTable;
+        $configurator->addOperatorReceiver($operatorMail);
+        $this->mailSender->sendMail($operatorMail, $message);
     }
 }

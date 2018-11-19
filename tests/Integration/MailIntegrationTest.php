@@ -11,7 +11,6 @@ class MailIntegrationTest extends TestCase {
     UserName: test@test.ch
     Password: test
     Port: 587
-    OperatorName: TestUser
     OperatorMail: testuser@test.ch';
 
     public function test_WithFormSubmitted_SendsMailWithConfiguration() {
@@ -71,10 +70,31 @@ class MailIntegrationTest extends TestCase {
         $contentExpected = 
 '# the subject
 
-<p>Your message has been send!</p>
+<p>Your message has been send!</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
+        $this->assertSame($contentExpected, $result);
+    }
 
-<table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
-        $this->assertSame($result, $contentExpected);
+    public function test_MailSendFailed_OperatorGetsMail() {
+        $setup = new IntegrationTestSetup();
+        $config = $setup->parseConfig(MailIntegrationTest::defaultConfig);
+        $setup->Post->Data[PostConsts::KeyIsPicoMailSend] = PostConsts::ValueTrue;
+        $setup->Post->Data[PostConsts::KeySubject] = "the subject";
+        $setup->Post->Data["userdata_mail"] = "Mail@Visitor.com";
+        $setup->Post->Data["userdata_name"] = "Visitor";
+        $setup->Post->Data[PostConsts::KeyMail] = "mail";
+        $setup->Post->Data[PostConsts::KeyFirstName] = "name";
+        $setup->Post->Data[PostConsts::KeySuccess] = "Your message has been send!";
+        $result = $setup->MailSender->Succeeds = false;
+        $result = $setup->MailSender->Message = 'The users mail is not valid.';
+        $testee = $setup->createTestee();
+        
+        $testee->setConfig($config);
+        $testee->prepareContent($result);
+        
+        $result = $setup->MailSender->Mails[1];
+        $this->assertSame('testuser@test.ch', $result->To['Operator']);
+        $expectedBody = '<p>A error occured while a user tried to fill your form: the subject</p><p>ERROR: The users mail is not valid.</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
+        $this->assertSame($expectedBody, $result->Body);
     }
         
 }

@@ -15,7 +15,7 @@ class FormAction {
         $this->config = $config;
         $this->annotationParser = new AnnotationParser();
     }
-        
+
     public function run(&$content) {
         while($this->getNextForm($content, $form)) {
             $subject = $this->getSubject($form->Content);
