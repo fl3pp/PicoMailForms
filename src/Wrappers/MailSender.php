@@ -7,33 +7,32 @@ use PHPMailer\PHPMailer\Exception as SMPTException;
 
 class MailSender {
 
-    public function sendMail($mail, &$resultMessage) : bool {
+    public function sendMail($mailInfo, &$resultMessage) : bool {
+
         $mail = new PHPMailer(true);
-
         $mail->isSMTP();
-        $mail->SMTPAuth = $mail->SmtpAuth;
+        $mail->SMTPAuth = $mailInfo->SmtpAuth;                           
+        $mail->SMTPSecure = $mailInfo->SmtpSecure;                            
+        $mail->Port = $mailInfo->Port;                           
+        $mail->Host = $mailInfo->Host;
+        $mail->Username = $mailInfo->Username;                 
+        $mail->Password = $mailInfo->Password;
+        $mail->setFrom($mailInfo->Username, $mailInfo->From);
+        $mail->isHtml($mailInfo->IsHtml);
 
-        $mail->setFrom($mail->Username, $mail->From);
-        $mail->Host = $mail->Host;
-        $mail->Username = $mail->Username;
-        $mail->Password = $staticConfiguration->Password;
-        $mail->SMTPSecure = $staticConfiguration->SmptSecure;
-        $mail->Port = $staticConfiguration->Port;
-        $mail->isHtml($staticConfiguration->IsHtml);
-        
-        foreach ($mail->To as $receiver) {
-            $mail->addAddress($receiver->Address, $receiver->Name);
+        foreach ($mailInfo->To as $name => $address) {
+            $mail->addAddress($address, $name);
         }
 
-        $mail->Subject = $contentCreator->Subject;
-        $mail->Body = $contentCreator->Body;
+        $mail->Subject = $mailInfo->Subject;
+        $mail->Body = $mailInfo->Body;
 
         try {
             $mail->send();
             $resultMessage = "Success";
             return true;
         } catch(SMPTException $ex) {
-            $resultMessage = "Failed: " . $mail->ErrorInfo;
+            $resultMessage = "Failed: " . $phpmail->ErrorInfo;
             return false;
         }
     }

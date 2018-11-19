@@ -30,10 +30,9 @@ class MailConfigurator {
             return;
         }
         
-        
         $operatorName = $this->config[MailConfigKeys::OperatorName];
         $operatorMail = $this->config[MailConfigKeys::OperatorMail];
-        $mail->To[$operatorMame] = $operatorMail;
+        $mail->To[$operatorName] = $operatorMail;
     }
     
     private function setFromName($mail) {
