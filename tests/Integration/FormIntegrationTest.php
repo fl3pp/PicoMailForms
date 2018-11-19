@@ -93,5 +93,29 @@ class FormIntegrationTest extends TestCase {
 </form>';
         $this->assertSame($expected, $result);
     }
+
+    public function test_SuccessAndFailed_AddsMessagesToHtmlForm() {
+        $setup = new IntegrationTestSetup();
+        $testee = $setup->createTestee();
+        $inputForm = 
+'[form]
+    [success]your message has been send[/success]
+    [failed]some error[/failed]
+[/form]';
+
+        $testee->setConfig(array());
+        $result = $inputForm;
+        $testee->prepareContent($result);
+
+        $expected = 
+'<form method="post">
+<input type="hidden" name="meta_subject" value="without subject" />
+<input type="hidden" name="meta_success" value="your message has been send" />
+<input type="hidden" name="meta_failed" value="some error" />
+<input type="hidden" name="meta_picomailsend" value="true" />
+<input type="submit" />
+</form>';
+        $this->assertSame($expected, $result);
+    }
     
 }
