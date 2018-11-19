@@ -5,6 +5,8 @@ namespace PicoMailPlugin;
 class PostConsts {
     const KeyIsPicoMailSend = 'meta_picomailsend';
     const KeySubject = 'meta_subject';
+    const KeySuccess = 'meta_success';
+    const KeyFailed = 'meta_failed';
     const KeyMail = 'meta_mail';
     const KeyFirstName = 'meta_firstname';
     const KeyLastName = 'meta_lastname';

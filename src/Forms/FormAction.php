@@ -23,11 +23,13 @@ class FormAction {
             $htmlBuilder = new HtmlFormBuilder();
             $htmlBuilder->addHiddenValue(PostConsts::KeySubject, $this->getSubject($form->Content));
 
-            foreach ($this->getTexts($content) as $text) {
+            foreach ($this->getTexts($form->Content) as $text) {
                 $htmlBuilder->addText($text->Key, $text->Content);
                 $this->processTraits($text, $htmlBuilder);
             }
             
+            $htmlBuilder->addHiddenValue(PostConsts::KeySuccess, $this->getSuccess($form->Content));
+            $htmlBuilder->addHiddenValue(PostConsts::KeyFailed, $this->getFailed($form->Content));
             $htmlBuilder->addHiddenValue(PostConsts::KeyIsPicoMailSend, PostConsts::ValueTrue);
             $htmlBuilder->addSubmit();
 
@@ -44,10 +46,22 @@ class FormAction {
     }
 
     private function getSubject($content) : string {
-        $subjectFound = $this->annotationParser->getAnnotation($content, 'subject', $match);
-
-        if(!$subjectFound) {
+        if(!$this->annotationParser->getAnnotation($content, 'subject', $match)) {
             return "without subject";
+        }
+        return $match->Content;
+    }
+
+    private function getSuccess($content) : string {
+        if (!$this->annotationParser->getAnnotation($content, 'success', $match)) {
+            return "Your form has successfully been send.";
+        }
+        return $match->Content;
+    }
+
+    private function getFailed($content) : string {
+        if (!$this->annotationParser->getAnnotation($content, 'failed', $match)) {
+            return "An error occured while sending your message: '{error}'.";
         }
         return $match->Content;
     }
