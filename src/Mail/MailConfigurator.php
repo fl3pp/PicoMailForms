@@ -2,11 +2,13 @@
 
 namespace PicoMailPlugin\Mail;
 
+use PicoMailPlugin\Mail\MailConfigKeys;
+
 class MailConfigurator {
     private $config;
 
     public function __construct($config) {
-        $this->config = $config['PicoMail'];
+        $this->config = $config[MailConfigKeys::YamlSection];
     }
 
     public function setConfiguration($mail) {
@@ -23,22 +25,22 @@ class MailConfigurator {
     }
 
     private function addDefaultReceiver() {
-        if (!array_key_exists('DefaultReceiverName', $this->config)
-         || !array_key_exists('DefaultReceiverMail', $this->config)) {
+        if (!array_key_exists(MailConfigKeys::OperatorName, $this->config)
+         || !array_key_exists(MailConfigKeys::OperatorMail, $this->config)) {
             return;
         }
         
-        $defaultName = $this->config['DefaultReceiverName'];
-        $defaultMail = $this->config['DefaultReceiverMail'];
+        $defaultName = $this->config[MailConfigKeys::OperatorName];
+        $defaultMail = $this->config[MailConfigKeys::OperatorMail];
         $mail->To[$defaultName] = $defaultMail;
     }
     
     private function setFromName($mail) {
-        $mail->From = $this->config['SenderName'];
+        $mail->From = $this->config[MailConfigKeys::SenderName];
     }
     
     private function setHost($mail) {
-        $mail->Host = $this->config['Host'];
+        $mail->Host = $this->config[MailConfigKeys::Host];
     }
 
     private function setSmtpAuth($mail) {
@@ -46,11 +48,11 @@ class MailConfigurator {
     }
 
     private function setUserName($mail) {
-        $mail->Username = $this->config['UserName'];
+        $mail->Username = $this->config[MailConfigKeys::UserName];
     }
     
     private function setPassword($mail) {
-        $mail->Password = $this->config['Password'];
+        $mail->Password = $this->config[MailConfigKeys::Password];
     }
 
     private function setSmtpSecure($mail) {
@@ -58,7 +60,7 @@ class MailConfigurator {
     }
 
     private function setPort($mail) {
-        $mail->Port = $this->config['Port'];
+        $mail->Port = $this->config[MailConfigKeys::Port];
     }
 
     private function setIsHtml($mail) {

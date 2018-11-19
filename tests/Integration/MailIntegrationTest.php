@@ -15,8 +15,8 @@ PicoMail:
     UserName: test@test.ch
     Password: test
     Port: 587
-    DefaultReceiverName: TestUser
-    DefaultReceiverMail: testuser@test.ch');
+    OperatorName: TestUser
+    OperatorMail: testuser@test.ch');
         $setup->Post->Data[PostConsts::KeyIsPicoMailSend] = PostConsts::ValueTrue;
         $setup->Post->Data[PostConsts::KeySubject] = "the subject";
         $setup->Post->Data[PostConsts::PrefixUserdata . "Name"] = "Visitor";
