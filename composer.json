@@ -1,6 +1,5 @@
 {
     "name": "jflepp/picomailformsplugin",
-    "version": "0.0.1",
     "description": "A mail plugin with forms for pico",
     "type": "pico-plugin",
     "require": {
