@@ -24,7 +24,7 @@ class FormAction {
             $htmlBuilder->addHiddenValue(PostConsts::KeySubject, $this->getSubject($form->Content));
 
             foreach ($this->getTexts($content) as $text) {
-                $htmlBuilder->addText($text->Content);
+                $htmlBuilder->addText($text->Key, $text->Content);
                 $this->processTraits($text, $htmlBuilder);
             }
             
@@ -66,11 +66,11 @@ class FormAction {
     private function processTraits($text, $htmlBuilder) {
         foreach ($text->Traits as $trait) {
             if (!strcasecmp($trait, PostConsts::TraitMail)) {
-                $htmlBuilder->addHiddenValue(PostConsts::KeyMail, $text->Content);
+                $htmlBuilder->addHiddenValue(PostConsts::KeyMail, $text->Key);
             } else if (!strcasecmp($trait, PostConsts::TraitFirstName)) {
-                $htmlBuilder->addHiddenValue(PostConsts::KeyFirstName, $text->Content);
+                $htmlBuilder->addHiddenValue(PostConsts::KeyFirstName, $text->Key);
             } else if (!strcasecmp($trait, PostConsts::TraitLastName)) {
-                $htmlBuilder->addHiddenValue(PostConsts::KeyLastName, $text->Content);
+                $htmlBuilder->addHiddenValue(PostConsts::KeyLastName, $text->Key);
             }
         }
     }

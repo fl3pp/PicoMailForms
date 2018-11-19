@@ -38,12 +38,12 @@ class ContentCreator {
             return;
         }
 
-        $mail = $this->post->getVariable(PostConsts::KeyMail);
+        $mail = $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyMail));
 
         $firstName = $this->post->isVariableDefined(PostConsts::KeyFirstName) ?
-            $this->post->getVariable(PostConsts::KeyFirstName) : '';
+            $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyFirstName)) : '';
         $lastName = $this->post->isVariableDefined(PostConsts::KeyLastName) ?
-            $this->post->getVariable(PostConsts::KeyLastName) : '';
+            $this->post->getVariable(PostConsts::PrefixUserdata.$this->post->getVariable(PostConsts::KeyLastName)) : '';
         
         if ($firstName == '' && $lastName == '') {
             $name = $mail;

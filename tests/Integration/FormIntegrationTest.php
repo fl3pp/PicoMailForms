@@ -76,10 +76,10 @@ class FormIntegrationTest extends TestCase {
 <input type="hidden" name="meta_subject" value="testsubject" />
 <label for="userdata_mail">Mail</label>
 <input type="text" name="userdata_mail" />
-<input type="hidden" name="meta_mail" value="Mail" />
+<input type="hidden" name="meta_mail" value="mail" />
 <label for="userdata_firstname">FirstName</label>
 <input type="text" name="userdata_firstname" />
-<input type="hidden" name="meta_firstname" value="FirstName" />
+<input type="hidden" name="meta_firstname" value="firstname" />
 <label for="userdata_address">Address</label>
 <input type="text" name="userdata_address" />
 <input type="hidden" name="meta_picomailsend" value="true" />

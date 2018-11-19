@@ -13,5 +13,13 @@ class AnnotationTest extends TestCase {
 
         $this->assertSame(20, $result);
     }
+
+    public function test_Key_SetInConstructor_TakesContentWithoutWhitespaceInLowercase() {
+        $testee = new Annotation("I am Content", "[test]I am Content[/test]", 0, array());
+
+        $result = $testee->Key;
+
+        $this->assertSame("i_am_content", $result);
+    }
     
 }
