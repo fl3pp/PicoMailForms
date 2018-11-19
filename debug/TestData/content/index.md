@@ -2,5 +2,8 @@
 
 [form]
     [subject]test[/subject]
-    [text]Name[/text]
+    [text mail]Mail[/text]
+    [text firstname]First name[/text]
+    [text lastname]Last name[/text]
+    [text]Some other information[/text]
 [/form]
