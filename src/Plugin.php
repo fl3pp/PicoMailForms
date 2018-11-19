@@ -2,7 +2,7 @@
 
 namespace PicoMailPlugin;
 
-use PicoMailPlugin\PostKeys;
+use PicoMailPlugin\PostConsts;
 
 class Plugin {
     private $post;
@@ -19,8 +19,8 @@ class Plugin {
     }
 
     public function prepareContent(&$content) {
-        if ($this->post->isVariableDefined(PostKeys::IsPicoMailSend) 
-         && $this->post->getVariable(PostKeys::IsPicoMailSend) == PostKey::TrueValue) {
+        if ($this->post->isVariableDefined(PostConsts::KeyIsPicoMailSend) 
+         && $this->post->getVariable(PostConsts::KeyIsPicoMailSend) == PostConsts::TrueValue) {
             $action = new \PicoMailPlugin\Mail\MailAction($this->config, $this->mailSender, $this->post);
         } else {
             $action = new \PicoMailPlugin\Forms\FormAction($this->config);

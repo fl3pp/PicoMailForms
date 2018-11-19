@@ -5,6 +5,7 @@ namespace PicoMailPlugin\Forms;
 use PicoMailPlugin\Forms\AnnotationParsing\AnnotationParser;
 use PicoMailPlugin\Forms\AnnotationParsing\Annotation;
 use PicoMailPlugin\Forms\HtmlFormBuilder;
+use PicoMailPlugin\PostConsts;
 
 class FormAction {
     private $config;
@@ -20,12 +21,13 @@ class FormAction {
             $subject = $this->getSubject($form->content);
             
             $htmlBuilder = new HtmlFormBuilder();
-            $htmlBuilder->addHiddenValue('meta_subject', $this->getSubject($form->content));
+            $htmlBuilder->addHiddenValue(PostConsts::KeySubject, $this->getSubject($form->content));
 
             foreach ($this->getTexts($content) as $text) {
                 $htmlBuilder->addText($text);
             }
             
+            $htmlBuilder->addHiddenValue(PostConsts::KeyIsPicoMailSend, PostConsts::ValueTrue);
             $htmlBuilder->addSubmit();
 
             $this->replaceForm($content, $form, $htmlBuilder);

@@ -2,6 +2,8 @@
 
 namespace PicoMailPlugin\Forms;
 
+use PicoMailPlugin\PostConsts;
+
 class HtmlFormBuilder {
     private $html = '';
 
@@ -14,12 +16,12 @@ class HtmlFormBuilder {
     }
 
     public function addText($name) {
-        $this->html .= "<label for=\"userdata_$name\">$name</label>\r\n";
-        $this->html .= "<input type=\"text\" name=\"userdata_$name\"  />\r\n";
+        $inputName = PostConsts::PrefixUserdata.$name;
+        $this->html .= '<label for="'.$inputName.'">'.$name.'</label>'."\r\n";
+        $this->html .= '<input type="text" name="'.$inputName.'" />'."\r\n";
     }
     
     public function createHtml() : string {
-        $this->addHiddenValue('IsPicoMailSend', 'true');
         return "<form method=\"post\">\r\n$this->html</form>";
     }
 

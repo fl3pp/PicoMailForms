@@ -2,7 +2,7 @@
 
 namespace PicoMailPlugin\Mail;
 
-use PicoMailPlugin\Mail\Receiver;
+use PicoMailPlugin\PostConsts;
 
 class ContentCreator {
     private $post;
@@ -18,7 +18,7 @@ class ContentCreator {
     }
     
     public function getSubject() : string {
-        return $this->post->getVariable('meta_subject');
+        return $this->post->getVariable(PostConsts::KeySubject);
     }
 
     public function getBody() : string {
@@ -48,8 +48,8 @@ class ContentCreator {
     private function getPostUserData() {
         $data = array();
         foreach ($this->post-getVariables() as $key => $value) {
-            if (substr($key, 0, 9) != 'userdata_') continue;
-            $data[substr($key, 9)] = $value;
+            if (substr($key, 0, strlen(PostConsts::PrefixUserdata)) != PostConsts::PrefixUserdata) continue;
+            $data[substr($key, strlen(PostConsts::PrefixUserdata))] = $value;
         }
         return $data;
     }

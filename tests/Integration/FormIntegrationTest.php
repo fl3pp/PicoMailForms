@@ -22,9 +22,9 @@ class IntegrationTest extends TestCase {
 '<form method="post">
 <input type="hidden" name="meta_subject" value="testsubject" />
 <label for="userdata_Name">Name</label>
-<input type="text" name="userdata_Name"  />
-<input type="submit" />
+<input type="text" name="userdata_Name" />
 <input type="hidden" name="IsPicoMailSend" value="true" />
+<input type="submit" />
 </form>';
         $this->assertSame($expected, $result);
     }
@@ -47,11 +47,11 @@ class IntegrationTest extends TestCase {
 '<form method="post">
 <input type="hidden" name="meta_subject" value="testsubject" />
 <label for="userdata_Name">Name</label>
-<input type="text" name="userdata_Name"  />
+<input type="text" name="userdata_Name" />
 <label for="userdata_Mail">Mail</label>
-<input type="text" name="userdata_Mail"  />
-<input type="submit" />
+<input type="text" name="userdata_Mail" />
 <input type="hidden" name="IsPicoMailSend" value="true" />
+<input type="submit" />
 </form>';
         $this->assertSame($expected, $result);
     }
