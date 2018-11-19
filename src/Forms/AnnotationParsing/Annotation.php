@@ -3,15 +3,15 @@
 namespace PicoMailPlugin\Forms\AnnotationParsing;
 
 class Annotation {
-    public $content;
-    public $raw;
-    public $start;
-    public $length;
+    public $Content;
+    public $Raw;
+    public $Start;
+    public $Length;
 
     public function __construct($content, $raw, $start) {
-        $this->content = $content;
-        $this->raw = $raw;
-        $this->start = $start;
-        $this->length = strlen($raw);
+        $this->Content = $content;
+        $this->Raw = $raw;
+        $this->Start = $start;
+        $this->Length = strlen($raw);
     }
 }

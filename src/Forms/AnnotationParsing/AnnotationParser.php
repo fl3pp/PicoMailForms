@@ -13,7 +13,7 @@ class AnnotationParser {
     }
 
     private function getRegex($annotation) {
-        return '/\['.$annotation.'\](?<content>.*?)\[\/'.$annotation.'\]/s';
+        return '/\['.$annotation.'\](?<content>.*?)\[\/'.$annotation.'\]/si';
     }
 
     private function getMatch($regex, $text, &$match) {
