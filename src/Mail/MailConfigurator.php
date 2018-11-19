@@ -12,7 +12,7 @@ class MailConfigurator {
     }
 
     public function setConfiguration($mail) {
-        $this->addDefaultReceiver($mail);
+        $this->addOperatorReceiver($mail);
         $this->setFromName($mail);
         $this->setHost($mail);
         $this->setSmtpAuth($mail);
@@ -24,15 +24,15 @@ class MailConfigurator {
         $this->setIsSmtp($mail);
     }
 
-    private function addDefaultReceiver() {
+    private function addOperatorReceiver() {
         if (!array_key_exists(MailConfigKeys::OperatorName, $this->config)
          || !array_key_exists(MailConfigKeys::OperatorMail, $this->config)) {
             return;
         }
         
-        $defaultName = $this->config[MailConfigKeys::OperatorName];
-        $defaultMail = $this->config[MailConfigKeys::OperatorMail];
-        $mail->To[$defaultName] = $defaultMail;
+        $name = $this->config[MailConfigKeys::OperatorName];
+        $mail = $this->config[MailConfigKeys::OperatorMail];
+        $mail->To[$name] = $mail;
     }
     
     private function setFromName($mail) {
