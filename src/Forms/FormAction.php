@@ -6,7 +6,6 @@ use PicoMailPlugin\Forms\AnnotationParsing\AnnotationParser;
 use PicoMailPlugin\Forms\AnnotationParsing\Annotation;
 use PicoMailPlugin\Forms\HtmlFormBuilder;
 
-
 class FormAction {
     private $config;
     private $annotationFinder;
@@ -56,7 +55,7 @@ class FormAction {
         $texts = array();
         while ($this->annotationFinder->getAnnotation($contentToSearch, 'text', $match)) {
             $contentToSearch = substr($contentToSearch, $match->start + $match->length);
-            array_push($texts, $match);
+            array_push($texts, $match->content);
         }
         return $texts;
     }

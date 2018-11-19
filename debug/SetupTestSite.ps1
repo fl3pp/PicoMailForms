@@ -11,8 +11,8 @@ New-Item -ItemType Directory $appDirectory;
 
 cd $appDirectory;
 
+composer clearcache
 composer create-project picocms/pico-composer .
-Remove-Item -Recurse -Force "C:\Users\flja\AppData\Local\Composer\vcs\https---github.com-jflepp-PicoMailForms.git"
 composer require jflepp/picomailformsplugin dev-master
 
 Copy-Item $PSScriptRoot\index.md $appDirectory\content\index.md
