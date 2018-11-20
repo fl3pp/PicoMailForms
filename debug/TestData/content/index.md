@@ -2,7 +2,7 @@
 
 [form]
     [subject]test[/subject]
-    [success]You successfully subscribed for the programm[/success]
+    [success]You successfully subscribed for the programm. Here is a special char: ü[/success]
     [failed]Oops, something went wrong. Please contact me[/failed]
     [text mail]Mail[/text]
     [text firstname]First name[/text]

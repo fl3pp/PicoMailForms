@@ -95,6 +95,7 @@ Your message has been send!
         
         $result = $setup->MailSender->Mails[1];
         $this->assertSame(1, count($result->To));
+        $this->assertSame('The form \'the subject\' has been filled', $result->Subject);
         $this->assertSame('testuser@test.ch', $result->To['Operator']);
         $expectedBody = '<p>A error occured while a user tried to fill your form: the subject</p><p>ERROR: The users mail is not valid.</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($expectedBody, $result->Body);

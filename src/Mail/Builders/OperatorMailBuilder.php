@@ -17,7 +17,7 @@ class OperatorMailBuilder {
         $mail = new Mail();
         $this->configurator->setConfiguration($mail);
         $this->configurator->addOperatorReceiver($mail);
-        $mail->Subject = 'The form\''.$this->contentCreator->getSubject().'has been filled';        
+        $mail->Subject = 'The form \''.$this->contentCreator->getSubject().'\' has been filled';        
         $message = $userMailSuccessFull 
         ? "A user has successfully filled your form: " 
         : "A error occured while a user tried to fill your form: ";

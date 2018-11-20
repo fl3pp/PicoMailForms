@@ -12,7 +12,7 @@ New-Item -ItemType Directory $appDirectory;
 cd $appDirectory;
 
 composer create-project picocms/pico-composer .
-composer require jflepp/picomailformsplugin
+composer require jflepp/picomailformsplugin 0.0.14
 
 Copy-Item $PSScriptRoot\TestData\* $appDirectory -Recurse -Force
 
