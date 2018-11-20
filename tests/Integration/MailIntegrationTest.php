@@ -5,7 +5,7 @@ use PicoMailPlugin\Test\Integration\Setup\IntegrationTestSetup;
 use PHPUnit\Framework\TestCase;
 
 class MailIntegrationTest extends TestCase {
-    private const defaultConfig = 'PicoMail:
+    private const defaultConfig = 'Mail:
     SenderName: test.ch
     Host: server.test.ch
     UserName: test@test.ch

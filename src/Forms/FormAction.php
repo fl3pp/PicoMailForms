@@ -6,6 +6,7 @@ use PicoMailPlugin\Forms\AnnotationParsing\AnnotationParser;
 use PicoMailPlugin\Forms\AnnotationParsing\Annotation;
 use PicoMailPlugin\Forms\HtmlFormBuilder;
 use PicoMailPlugin\PostConsts;
+use PicoMailPlugin\Forms\FormConfigKeys;
 
 class FormAction {
     private $config;
@@ -18,7 +19,7 @@ class FormAction {
 
     public function run(&$content) {
         while($this->getNextForm($content, $form)) {
-            $htmlBuilder = new HtmlFormBuilder();
+            $htmlBuilder = $this->getHtmlBuilder();
 
             $this->processSubject($form->Content, $htmlBuilder);
             $this->processSuccessMessage($form->Content, $htmlBuilder);
@@ -29,6 +30,21 @@ class FormAction {
 
             $this->replaceForm($content, $form, $htmlBuilder);
         }
+    }
+
+    private function getHtmlBuilder() {
+        $useBootstrap = false;
+        if (array_key_exists(FormConfigKeys::YamlSection, $this->config)){
+            if (array_key_exists(FormConfigKeys::UseBootstrap, $this->config[FormConfigKeys::YamlSection])) {
+                $useBootstrap = 
+                    $this->config[FormConfigKeys::YamlSection][FormConfigKeys::UseBootstrap] 
+                    == 
+                    PostConsts::ValueTrue;
+            }
+        }
+        return $useBootstrap 
+            ? new \PicoMailPlugin\Forms\HtmlFormBuilders\BootstrapBuilder()
+            : new \PicoMailPlugin\Forms\HtmlFormBuilders\PlainBuilder();
     }
 
     private function getNextForm($content, &$form) : bool {

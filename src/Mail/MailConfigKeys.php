@@ -3,7 +3,7 @@
 namespace PicoMailPlugin\Mail;
 
 class MailConfigKeys {
-    const YamlSection = 'PicoMail';
+    const YamlSection = 'Mail';
 
     const OperatorMail = 'OperatorMail';
     const SenderName = 'SenderName';
