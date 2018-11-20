@@ -30,7 +30,7 @@ class MailIntegrationTest extends TestCase {
         $this->assertTrue($result->IsHtml);
     }
 
-    public function test_MailWithData_CreatesMail() {
+    public function test_MailWithData_CreatesMailForCustomer() {
         $setup = new IntegrationTestSetup();
         $config = $setup->parseConfig(MailIntegrationTest::defaultConfig);
         $setup->Post->Data[PostConsts::KeyIsPicoMailSend] = PostConsts::ValueTrue;
@@ -46,6 +46,7 @@ class MailIntegrationTest extends TestCase {
         
         $result = $setup->MailSender->Mails[0];
         $this->assertSame('Mail@Visitor.com', $result->To['Visitor']);
+        $this->assertSame(1, count($result->To));
         $contentExpected = '<p>Your form has successfully been send.</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($contentExpected, $result->Body);
         $this->assertSame('the subject', $result->Subject);
@@ -93,6 +94,7 @@ Your message has been send!
         $testee->prepareContent($result);
         
         $result = $setup->MailSender->Mails[1];
+        $this->assertSame(1, count($result->To));
         $this->assertSame('testuser@test.ch', $result->To['Operator']);
         $expectedBody = '<p>A error occured while a user tried to fill your form: the subject</p><p>ERROR: The users mail is not valid.</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($expectedBody, $result->Body);
@@ -116,5 +118,4 @@ Your message has been send!
         $expectedBody = '<p>These are some special chars: &lt;</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($expectedBody, $result->Body);
     }
-        
 }

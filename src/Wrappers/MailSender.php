@@ -26,6 +26,7 @@ class MailSender {
 
         $mail->Subject = $mailInfo->Subject;
         $mail->Body = '<html><body>'.$mailInfo->Body.'</body></html>';
+        $mail->CharSet = 'UTF-8';
 
         try {
             $mail->send();

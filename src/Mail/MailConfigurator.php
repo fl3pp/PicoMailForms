@@ -12,7 +12,6 @@ class MailConfigurator {
     }
 
     public function setConfiguration($mail) {
-        $this->addOperatorReceiver($mail);
         $this->setFromName($mail);
         $this->setHost($mail);
         $this->setSmtpAuth($mail);
