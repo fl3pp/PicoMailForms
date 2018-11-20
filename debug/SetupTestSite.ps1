@@ -2,6 +2,7 @@
 
 $appDirectory = 'TestApp';
 
+$pluginDirectory = "$PSScriptRoot\..";
 $appDirectory = "$PSScriptRoot\..\..\$appDirectory";
 
 if (Test-Path $appDirectory) {
@@ -12,7 +13,11 @@ New-Item -ItemType Directory $appDirectory;
 cd $appDirectory;
 
 composer create-project picocms/pico-composer .
-composer require jflepp/picomailformsplugin 0.0.14
+composer require jflepp/picomailformsplugin
+
+Remove-Item -Recurse -Force $appDirectory\plugins\PicoMailFormsPlugin
+New-Item -ItemType Directory $appDirectory\plugins\PicoMailFormsPlugin;
+Copy-Item $pluginDirectory\* $appDirectory\plugins\PicoMailFormsPlugin -Recurse -Force
 
 Copy-Item $PSScriptRoot\TestData\* $appDirectory -Recurse -Force
 
