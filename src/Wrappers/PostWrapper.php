@@ -2,6 +2,9 @@
 
 namespace PicoMailPlugin\Wrappers;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PostWrapper {
 
     public function getVariable(string $key) : string {

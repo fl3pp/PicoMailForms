@@ -1,0 +1,1 @@
+.\vendor\bin\phpunit.bat --coverage-html ./coverage --whitelist ./src

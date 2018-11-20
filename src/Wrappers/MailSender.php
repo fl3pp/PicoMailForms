@@ -4,6 +4,9 @@ namespace PicoMailPlugin\Wrappers;
 
 use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MailSender {
 
     public function sendMail($mailInfo, &$resultMessage) : bool {
