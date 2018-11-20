@@ -11,8 +11,6 @@ class PageContentBuilder {
 
     public function buildContent(&$content, $userMailSuccessFull) {
         $content = '';
-        $content .= '# '. $this->contentCreator->getSubject();
-        $content .= "\r\n\r\n";
         $content .= $userMailSuccessFull 
             ? $this->contentCreator->getSuccessMessage() 
             : $this->contentCreator->getFailedMessage();

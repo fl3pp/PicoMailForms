@@ -68,9 +68,7 @@ class MailIntegrationTest extends TestCase {
         $testee->prepareContent($result);
         
         $contentExpected = 
-'# the subject
-
-Your message has been send!
+'Your message has been send!
 
 <table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($contentExpected, $result);
