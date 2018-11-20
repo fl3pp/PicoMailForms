@@ -39,7 +39,6 @@ class MailIntegrationTest extends TestCase {
         $setup->Post->Data["userdata_name"] = "Visitor";
         $setup->Post->Data[PostConsts::KeyMail] = "mail";
         $setup->Post->Data[PostConsts::KeyFirstName] = "name";
-        $setup->Post->Data[PostConsts::KeySuccess] = "Your message has been send!";
         $testee = $setup->createTestee();
         
         $testee->setConfig($config);
@@ -47,12 +46,12 @@ class MailIntegrationTest extends TestCase {
         
         $result = $setup->MailSender->Mails[0];
         $this->assertSame('Mail@Visitor.com', $result->To['Visitor']);
-        $contentExpected = '<p>Your message has been send!</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
+        $contentExpected = '<p>Your form has successfully been send.</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($contentExpected, $result->Body);
         $this->assertSame('the subject', $result->Subject);
     }
 
-    public function test_MailSuccessFull_FillsPage() {
+    public function test_MailSuccessFullWithCustomSuccess_FillsPage() {
         $setup = new IntegrationTestSetup();
         $config = $setup->parseConfig(MailIntegrationTest::defaultConfig);
         $setup->Post->Data[PostConsts::KeyIsPicoMailSend] = PostConsts::ValueTrue;
@@ -70,7 +69,9 @@ class MailIntegrationTest extends TestCase {
         $contentExpected = 
 '# the subject
 
-<p>Your message has been send!</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
+Your message has been send!
+
+<table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($contentExpected, $result);
     }
 

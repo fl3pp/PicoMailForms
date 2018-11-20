@@ -12,18 +12,17 @@ class ContentCreator {
     }
         
     public function getSubject() {
-        return $this->post->isVariableDefined(PostConsts::KeySubject) ?
-            $this->post->getVariable(PostConsts::KeySubject) : "Without subject";
+        return $this->getPostVariableOrDefault(PostConsts::KeySubject, "Without subject");
     }
 
-    public function getResultMessage($success) {
-        return '<p>'.
-            ($success 
-            ? $this->post->getVariable(PostConsts::KeySuccess)
-            : $this->post->getVariable(PostConsts::KeyFailed))
-            .'</p>';
+    public function getSuccessMessage() {
+        return $this->getPostVariableOrDefault(PostConsts::KeySuccess, "Your form has successfully been send.");
     }
 
+    public function getFailedMessage() {
+        return $this->getPostVariableOrDefault(PostConsts::KeyFailed, "An error occured while sending your message. Please contact the site administrator.");
+    }
+    
     public function getDataTable() {
         $body = '<table>';
         foreach ($this->getPostUserData() as $key => $value){
@@ -36,7 +35,7 @@ class ContentCreator {
         return $body;
     }
 
-    public function addReceiver($mail) {
+    public function addUserReceiver($mail) {
         if (!$this->post->isVariableDefined(PostConsts::KeyMail)) {
             return;
         }
@@ -59,6 +58,11 @@ class ContentCreator {
         }
 
         $mail->To[$userName] = $userMail;
+    }
+
+    private function getPostVariableOrDefault($variableName, $default) {
+        return $this->post->isVariableDefined($variableName) ?
+            $this->post->getVariable($variableName) : $default;
     }
 
     private function getPostUserData() {

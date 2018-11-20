@@ -23,8 +23,6 @@ class FormIntegrationTest extends TestCase {
 <input type="hidden" name="meta_subject" value="testsubject" />
 <label for="userdata_name">Name</label>
 <input type="text" name="userdata_name" />
-<input type="hidden" name="meta_success" value="Your form has successfully been send." />
-<input type="hidden" name="meta_failed" value="An error occured while sending your message. Please contact the site administrator." />
 <input type="hidden" name="meta_picomailsend" value="true" />
 <input type="submit" />
 </form>';
@@ -52,8 +50,6 @@ class FormIntegrationTest extends TestCase {
 <input type="text" name="userdata_name" />
 <label for="userdata_mail">Mail</label>
 <input type="text" name="userdata_mail" />
-<input type="hidden" name="meta_success" value="Your form has successfully been send." />
-<input type="hidden" name="meta_failed" value="An error occured while sending your message. Please contact the site administrator." />
 <input type="hidden" name="meta_picomailsend" value="true" />
 <input type="submit" />
 </form>';
@@ -86,8 +82,6 @@ class FormIntegrationTest extends TestCase {
 <input type="hidden" name="meta_firstname" value="firstname" />
 <label for="userdata_address">Address</label>
 <input type="text" name="userdata_address" />
-<input type="hidden" name="meta_success" value="Your form has successfully been send." />
-<input type="hidden" name="meta_failed" value="An error occured while sending your message. Please contact the site administrator." />
 <input type="hidden" name="meta_picomailsend" value="true" />
 <input type="submit" />
 </form>';
@@ -109,7 +103,6 @@ class FormIntegrationTest extends TestCase {
 
         $expected = 
 '<form method="post">
-<input type="hidden" name="meta_subject" value="without subject" />
 <input type="hidden" name="meta_success" value="your message has been send" />
 <input type="hidden" name="meta_failed" value="some error" />
 <input type="hidden" name="meta_picomailsend" value="true" />

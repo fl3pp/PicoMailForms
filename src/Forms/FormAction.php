@@ -18,20 +18,14 @@ class FormAction {
 
     public function run(&$content) {
         while($this->getNextForm($content, $form)) {
-            $subject = $this->getSubject($form->Content);
-            
             $htmlBuilder = new HtmlFormBuilder();
-            $htmlBuilder->addHiddenValue(PostConsts::KeySubject, $this->getSubject($form->Content));
 
-            foreach ($this->getTexts($form->Content) as $text) {
-                $htmlBuilder->addText($text->Key, $text->Content);
-                $this->processTraits($text, $htmlBuilder);
-            }
-            
-            $htmlBuilder->addHiddenValue(PostConsts::KeySuccess, $this->getSuccess($form->Content));
-            $htmlBuilder->addHiddenValue(PostConsts::KeyFailed, $this->getFailed($form->Content));
-            $htmlBuilder->addHiddenValue(PostConsts::KeyIsPicoMailSend, PostConsts::ValueTrue);
-            $htmlBuilder->addSubmit();
+            $this->processSubject($form->Content, $htmlBuilder);
+            $this->processSuccessMessage($form->Content, $htmlBuilder);
+            $this->processFailedMessage($form->Content, $htmlBuilder);
+            $this->processTexts($form->Content, $htmlBuilder);
+            $this->processPicoMailSend($htmlBuilder);
+            $this->processSubmit($htmlBuilder);
 
             $this->replaceForm($content, $form, $htmlBuilder);
         }
@@ -45,36 +39,35 @@ class FormAction {
         return false;
     }
 
-    private function getSubject($content) : string {
-        if(!$this->annotationParser->getAnnotation($content, 'subject', $match)) {
-            return "without subject";
+    private function processSubject($content, $htmlBuilder) {
+        if($this->annotationParser->getAnnotation($content, 'subject', $match)) {
+            $htmlBuilder->addHiddenValue(PostConsts::KeySubject, $match->Content);
         }
-        return $match->Content;
     }
 
-    private function getSuccess($content) : string {
-        if (!$this->annotationParser->getAnnotation($content, 'success', $match)) {
-            return "Your form has successfully been send.";
+    private function processSuccessMessage($content, $htmlBuilder) {
+        if ($this->annotationParser->getAnnotation($content, 'success', $match)) {
+            $htmlBuilder->addHiddenValue(PostConsts::KeySuccess, $match->Content);
         }
-        return $match->Content;
     }
 
-    private function getFailed($content) : string {
-        if (!$this->annotationParser->getAnnotation($content, 'failed', $match)) {
-            return "An error occured while sending your message. Please contact the site administrator.";
+    private function processFailedMessage($content, $htmlBuilder) {
+        if ($this->annotationParser->getAnnotation($content, 'failed', $match)) {
+            $htmlBuilder->addHiddenValue(PostConsts::KeyFailed, $match->Content);
         }
-        return $match->Content;
     }
 
-    private function getTexts($content) {
+    private function processTexts($content, $htmlBuilder) {
         $contentToSearch = $content;
-
-        $texts = array();
         while ($this->annotationParser->getAnnotation($contentToSearch, 'text', $match)) {
             $contentToSearch = substr($contentToSearch, $match->Start + $match->Length);
-            array_push($texts, $match);
+            $this->processText($match, $htmlBuilder);
+            $this->processTraits($match, $htmlBuilder);
         }
-        return $texts;
+    }
+
+    private function processText($text, $htmlBuilder) {
+        $htmlBuilder->addText($text->Key, $text->Content);
     }
 
     private function processTraits($text, $htmlBuilder) {
@@ -87,6 +80,14 @@ class FormAction {
                 $htmlBuilder->addHiddenValue(PostConsts::KeyLastName, $text->Key);
             }
         }
+    }
+
+    private function processPicoMailSend($htmlBuilder) {
+        $htmlBuilder->addHiddenValue(PostConsts::KeyIsPicoMailSend, PostConsts::ValueTrue);
+    }
+
+    private function processSubmit($htmlBuilder) {
+        $htmlBuilder->addSubmit();
     }
 
     private function replaceForm(&$content, $form, $htmlBuilder) {
