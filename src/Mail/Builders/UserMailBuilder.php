@@ -18,8 +18,8 @@ class UserMailBuilder {
         $this->configurator->setConfiguration($mail);
         $this->contentCreator->addUserReceiver($mail);
         $mail->Subject = $this->contentCreator->getSubject();
-        $mail->Body .= '<p>'.$this->contentCreator->getSuccessMessage().'</p>';
-        $mail->Body .= $this->contentCreator->getDataTable();
+        $mail->addParagraph($this->contentCreator->getSuccessMessage());
+        $mail->addHtml($this->contentCreator->getDataTable());
         return $mail;
     }
     

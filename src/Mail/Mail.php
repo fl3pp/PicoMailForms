@@ -17,4 +17,12 @@ class Mail {
     public $Subject;
     public $IsHtml;
     public $Body;
+
+    public function addParagraph($content) {
+        $this->Body .= '<p>'.htmlspecialchars($content).'</p>';
+    }
+
+    public function addHtml($html) {
+        $this->Body .= $html;
+    }
 }

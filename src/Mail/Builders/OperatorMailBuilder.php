@@ -19,11 +19,11 @@ class OperatorMailBuilder {
         $this->configurator->addOperatorReceiver($mail);
         $mail->Subject = 'The form\''.$this->contentCreator->getSubject().'has been filled';        
         $message = $userMailSuccessFull 
-            ? "A user has successfully filled your form: " 
-            : "A error occured while a user tried to fill your form: ";
-        $mail->Body = '<p>'.$message.$this->contentCreator->getSubject().'</p>';
-        if (!$userMailSuccessFull) $mail->Body .= "<p>ERROR: $sendMessage</p>";
-        $mail->Body .= $this->contentCreator->getDataTable();
+        ? "A user has successfully filled your form: " 
+        : "A error occured while a user tried to fill your form: ";
+        $mail->addParagraph($message.$this->contentCreator->getSubject());
+        if (!$userMailSuccessFull) $mail->addParagraph("ERROR: $sendMessage");
+        $mail->addHtml($this->contentCreator->getDataTable());
         return $mail;
     }
 

@@ -97,5 +97,24 @@ Your message has been send!
         $expectedBody = '<p>A error occured while a user tried to fill your form: the subject</p><p>ERROR: The users mail is not valid.</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
         $this->assertSame($expectedBody, $result->Body);
     }
+
+    public function test_MailSendWithSpecialCharsMessage_EscapesChars() {
+        $setup = new IntegrationTestSetup();
+        $config = $setup->parseConfig(MailIntegrationTest::defaultConfig);
+        $setup->Post->Data[PostConsts::KeyIsPicoMailSend] = PostConsts::ValueTrue;
+        $setup->Post->Data["userdata_mail"] = "Mail@Visitor.com";
+        $setup->Post->Data["userdata_name"] = "Visitor";
+        $setup->Post->Data[PostConsts::KeyMail] = "mail";
+        $setup->Post->Data[PostConsts::KeyFirstName] = "name";
+        $setup->Post->Data[PostConsts::KeySuccess] = "These are some special chars: <";
+        $testee = $setup->createTestee();
+
+        $testee->setConfig($config);
+        $testee->prepareContent($result);
+
+        $result = $setup->MailSender->Mails[0];
+        $expectedBody = '<p>These are some special chars: &lt;</p><table><tr><td><b>mail</b></td><td>Mail@Visitor.com</td></tr><tr><td><b>name</b></td><td>Visitor</td></tr></table>';
+        $this->assertSame($expectedBody, $result->Body);
+    }
         
 }
