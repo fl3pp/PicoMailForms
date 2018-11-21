@@ -1,10 +1,10 @@
 # PicoMailFormsPlugin
-PicoMailForms is a plugin for [Pico](http://picocms.org/) which allows you to define a form and automatically send a mail
-to a configured smtp server after submitting.
+PicoMailForms is a plugin for [Pico](http://picocms.org/) which allows you to define a form and send a mails
+to a configured smtp server on submitting.
 
 Forms can be written entirely in Markdown using custom markdown extensions. The mail is then being sent using [PHPMailer](https://github.com/PHPMailer/PHPMailer).
 
-PicoMailForms has been developed keeping CleanCode in mind. Unfortunately I'm not very familiar with PHP and the UnitTest coverage is therefore very low. The IntegrationTest coverage reaches 93%.
+PicoMailForms has been developed keeping CleanCode in mind. Unfortunately I'm not very familiar with PHP and the UnitTest coverage is therefore very low. The IntegrationTest coverage reaches 93%.  
 Pull requests are welcome!
 
 ### Use cases
@@ -44,7 +44,7 @@ _Form_
 [/form]
 ~~~~
 
-_Mail_
+_Operator Mail_
 
 A user has successfully filled your form: test
 
@@ -84,9 +84,9 @@ Forms:
 [/form]
 ~~~~
 
-- `[form]` The beginning / end of a form. All data inbetween will be interpreted or lost
+- `[form]` The beginning / end of a form. All data inbetween will be either interpreted or lost
 - `[success]` Defines the success message shown on the webpage and in the mail
-- `[failed]` The fail message shown when a mail is failed
-- `[text]` Will be transformed to a text input, the data inbetween will be used as label
-- `[text mail]` A usual text form which signalises PicoMailForms that this is where the user mail is being specified. You can use any label you want. This is the only field required in a form.
+- `[failed]` The fail message shown on the page when a mail failed
+- `[text]` Will be transformed to a text input, the text inbetween will be used as label
+- `[text mail]` A usual text input which signalizes PicoMailForms that this is where the user mail is being specified. You can use any label you want. This is the only field required in a form.
 - `[text firstname][text lastname]` The first name and last name of the user. It will be set as receivername of the usermail.
