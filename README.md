@@ -4,7 +4,7 @@ to a configured smtp server on submitting.
 
 Forms can be written entirely in Markdown using custom markdown extensions. The mail is then being sent using [PHPMailer](https://github.com/PHPMailer/PHPMailer).
 
-PicoMailForms has been developed keeping CleanCode in mind. Unfortunately I'm not very familiar with PHP and the UnitTest coverage is therefore very low. The IntegrationTest coverage reaches 93%.  
+PicoMailForms has been developed keeping CleanCode in mind. Unfortunately I'm not very familiar with PHP and the UnitTest coverage is therefore low. The IntegrationTest coverage reaches 98%.  
 Pull requests are welcome!
 
 ### Use cases
