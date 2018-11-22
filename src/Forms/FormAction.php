@@ -25,6 +25,7 @@ class FormAction {
             $this->processSuccessMessage($form->Content, $htmlBuilder);
             $this->processFailedMessage($form->Content, $htmlBuilder);
             $this->processTexts($form->Content, $htmlBuilder);
+            $this->processTextAreas($form->Content, $htmlBuilder);
             $this->processPicoMailSend($htmlBuilder);
             $this->processSubmit($htmlBuilder);
 
@@ -84,6 +85,14 @@ class FormAction {
 
     private function processText($text, $htmlBuilder) {
         $htmlBuilder->addText($text->Key, $text->Content);
+    }
+
+    private function processTextAreas($content, $htmlBuilder) {
+        $contentToSearch = $content;
+        while ($this->annotationParser->getAnnotation($contentToSearch, 'textarea', $match)) {
+            $contentToSearch = substr($contentToSearch, $match->Start + $match->Length);
+            $htmlBuilder->addTextArea($match->Key, $match->Content);
+        }
     }
 
     private function processTraits($text, $htmlBuilder) {

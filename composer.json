@@ -15,7 +15,7 @@
             "PicoMailPlugin\\": "src/",
             "PicoMailPlugin\\Test\\": "tests/"
         },
-	"classmap": ["PicoMailFormsPlugin.php"]
+		"classmap": ["PicoMailFormsPlugin.php"]
     },
     "extra": {
         "installer-name": "PicoMailFormsPlugin"

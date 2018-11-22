@@ -29,7 +29,7 @@ class FormIntegrationTest extends TestCase {
         $this->assertSame($expected, $result);
     }
 
-    public function test_TwoTexts_AddsHtmlForm() {
+    public function test_TwoTextsAndTextArea_AddsHtmlForm() {
         $setup = new IntegrationTestSetup();
         $testee = $setup->createTestee();
         $inputForm = 
@@ -37,6 +37,7 @@ class FormIntegrationTest extends TestCase {
     [subject]testsubject[/subject]
     [text]Name[/text]
     [text]Mail[/text]
+    [textarea]Message[/textarea]
 [/form]';
 
         $testee->setConfig(array());
@@ -50,6 +51,8 @@ class FormIntegrationTest extends TestCase {
 <input type="text" name="userdata_name" /><br />
 <label for="userdata_mail">Mail</label><br />
 <input type="text" name="userdata_mail" /><br />
+<label for="userdata_message">Message</label><br />
+<textarea name="userdata_message" /><br />
 <input type="hidden" name="meta_picomailsend" value="true" />
 <input type="submit" />
 </form>';

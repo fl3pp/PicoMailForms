@@ -15,6 +15,12 @@ class PlainBuilder {
         $this->html .= "<input type=\"submit\" />\r\n";
     }
 
+    public function addTextArea($key, $label) {
+        $inputName = PostConsts::PrefixUserdata.$key;
+        $this->html .= '<label for="'.$inputName.'">'.$label.'</label><br />'."\r\n";
+        $this->html .= '<textarea name="'.$inputName.'" /><br />'."\r\n";
+    }
+
     public function addText($key, $label) {
         $inputName = PostConsts::PrefixUserdata.$key;
         $this->html .= '<label for="'.$inputName.'">'.$label.'</label><br />'."\r\n";
