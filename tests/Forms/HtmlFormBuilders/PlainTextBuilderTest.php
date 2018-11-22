@@ -34,7 +34,7 @@ class PlainBuilderTest extends TestCase {
     public function test_addTextArea_ByDefault_AddsInput() {
         $testee = new PlainBuilder();
 
-        $testee->addTextArea('akey', 'alabel');
+        $testee->addTextArea('akey', 'alabel', false);
         $result = $testee->createHtml();
 
         $expected = 
@@ -45,16 +45,44 @@ class PlainBuilderTest extends TestCase {
         $this->assertSame($expected, $result);
     }
 
+    public function test_addTextArea_Required_AddsInputWithRequired() {
+        $testee = new PlainBuilder();
+
+        $testee->addTextArea('akey', 'alabel', true);
+        $result = $testee->createHtml();
+
+        $expected = 
+'<form method="post">
+<label for="userdata_akey">alabel</label><br />
+<textarea name="userdata_akey" required/><br />
+</form>';
+        $this->assertSame($expected, $result);
+    }
+
     public function test_addText_ByDefault_AddsInput() {
         $testee = new PlainBuilder();
 
-        $testee->addText('akey', 'alabel');
+        $testee->addText('akey', 'alabel', false);
         $result = $testee->createHtml();
 
         $expected = 
 '<form method="post">
 <label for="userdata_akey">alabel</label><br />
 <input type="text" name="userdata_akey" /><br />
+</form>';
+        $this->assertSame($expected, $result);
+    }
+
+    public function test_addText_Required_AddsInput() {
+        $testee = new PlainBuilder();
+
+        $testee->addText('akey', 'alabel', true);
+        $result = $testee->createHtml();
+
+        $expected = 
+'<form method="post">
+<label for="userdata_akey">alabel</label><br />
+<input type="text" name="userdata_akey" required/><br />
 </form>';
         $this->assertSame($expected, $result);
     }

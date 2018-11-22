@@ -4,7 +4,6 @@ namespace PicoMailPlugin\Forms;
 
 use PicoMailPlugin\Forms\AnnotationParsing\AnnotationParser;
 use PicoMailPlugin\Forms\AnnotationParsing\Annotation;
-use PicoMailPlugin\Forms\HtmlFormBuilder;
 use PicoMailPlugin\PostConsts;
 use PicoMailPlugin\Forms\FormConfigKeys;
 
@@ -84,15 +83,25 @@ class FormAction {
     }
 
     private function processText($text, $htmlBuilder) {
-        $htmlBuilder->addText($text->Key, $text->Content);
+        $htmlBuilder->addText($text->Key, $text->Content, $this->isRequired($text));
     }
 
     private function processTextAreas($content, $htmlBuilder) {
         $contentToSearch = $content;
         while ($this->annotationParser->getAnnotation($contentToSearch, 'textarea', $match)) {
             $contentToSearch = substr($contentToSearch, $match->Start + $match->Length);
-            $htmlBuilder->addTextArea($match->Key, $match->Content);
+            $htmlBuilder->addTextArea($match->Key, $match->Content, $this->isRequired($match));
         }
+    }
+
+    private function isRequired($annotation) {
+        $isRequired = false;        
+        foreach ($annotation->Traits as $trait) {
+            if ($trait == 'required')  { 
+                $isRequired = true;
+            }
+        }
+        return $isRequired;
     }
 
     private function processTraits($text, $htmlBuilder) {

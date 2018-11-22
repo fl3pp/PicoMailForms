@@ -15,19 +15,19 @@ class BootstrapBuilder {
         $this->html .= "<input type=\"submit\" class=\"btn btn-primary\" />\r\n";
     }
 
-    public function addTextArea($key, $label) {
+    public function addTextArea($key, $label, $isRequired) {
         $inputName = PostConsts::PrefixUserdata.$key;
         $this->html .= '<div class="form-group">'."\r\n";
         $this->html .= '   <label for="'.$inputName.'">'.$label.'</label>'."\r\n";
-        $this->html .= '   <textarea class="form-control" rows="5" name="'.$inputName.'" />'."\r\n";
+        $this->html .= '   <textarea class="form-control" rows="5" name="'.$inputName.'" '.($isRequired?'required':'').'/>'."\r\n";
         $this->html .= '</div>'."\r\n";
     }
 
-    public function addText($key, $label) {
+    public function addText($key, $label, $isRequired) {
         $inputName = PostConsts::PrefixUserdata.$key;
         $this->html .= '<div class="form-group">'."\r\n";
         $this->html .= '   <label for="'.$inputName.'">'.$label.'</label>'."\r\n";
-        $this->html .= '   <input class="form-control" type="text" name="'.$inputName.'" />'."\r\n";
+        $this->html .= '   <input class="form-control" type="text" name="'.$inputName.'" '.($isRequired?'required':'').'/>'."\r\n";
         $this->html .= '</div>'."\r\n";
     }
     

@@ -34,7 +34,7 @@ class BootstrapTest extends TestCase {
     public function test_addTextArea_ByDefault_AddsInput() {
         $testee = new BootstrapBuilder();
 
-        $testee->addTextArea('akey', 'alabel');
+        $testee->addTextArea('akey', 'alabel', false);
         $result = $testee->createHtml();
 
         $expected = 
@@ -44,13 +44,29 @@ class BootstrapTest extends TestCase {
    <textarea class="form-control" rows="5" name="userdata_akey" />
 </div>
 </form>';
+        $this->assertSame($expected, $result, false);
+    }
+
+    public function test_addTextArea_WithRequired_AddsInput() {
+        $testee = new BootstrapBuilder();
+
+        $testee->addTextArea('akey', 'alabel', true);
+        $result = $testee->createHtml();
+
+        $expected = 
+'<form method="post">
+<div class="form-group">
+   <label for="userdata_akey">alabel</label>
+   <textarea class="form-control" rows="5" name="userdata_akey" required/>
+</div>
+</form>';
         $this->assertSame($expected, $result);
     }
 
     public function test_addText_ByDefault_AddsInput() {
         $testee = new BootstrapBuilder();
 
-        $testee->addText('akey', 'alabel');
+        $testee->addText('akey', 'alabel', false);
         $result = $testee->createHtml();
 
         $expected = 
@@ -58,6 +74,22 @@ class BootstrapTest extends TestCase {
 <div class="form-group">
    <label for="userdata_akey">alabel</label>
    <input class="form-control" type="text" name="userdata_akey" />
+</div>
+</form>';
+        $this->assertSame($expected, $result);
+    }
+
+    public function test_addText_Required_AddsInput() {
+        $testee = new BootstrapBuilder();
+
+        $testee->addText('akey', 'alabel', true);
+        $result = $testee->createHtml();
+
+        $expected = 
+'<form method="post">
+<div class="form-group">
+   <label for="userdata_akey">alabel</label>
+   <input class="form-control" type="text" name="userdata_akey" required/>
 </div>
 </form>';
         $this->assertSame($expected, $result);

@@ -29,6 +29,30 @@ class FormIntegrationTest extends TestCase {
         $this->assertSame($expected, $result);
     }
 
+    public function test_RequiredField_AddsRequired() {
+        $setup = new IntegrationTestSetup();
+        $testee = $setup->createTestee();
+        $inputForm = 
+'[form]
+    [subject]testsubject[/subject]
+    [text required]Name[/text]
+[/form]';
+
+        $testee->setConfig(array());
+        $result = $inputForm;
+        $testee->prepareContent($result);
+
+        $expected = 
+'<form method="post">
+<input type="hidden" name="meta_subject" value="testsubject" />
+<label for="userdata_name">Name</label><br />
+<input type="text" name="userdata_name" required/><br />
+<input type="hidden" name="meta_picomailsend" value="true" />
+<input type="submit" />
+</form>';
+        $this->assertSame($expected, $result);
+    }
+
     public function test_TwoTextsAndTextArea_AddsHtmlForm() {
         $setup = new IntegrationTestSetup();
         $testee = $setup->createTestee();

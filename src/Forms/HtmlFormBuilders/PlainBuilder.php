@@ -15,16 +15,16 @@ class PlainBuilder {
         $this->html .= "<input type=\"submit\" />\r\n";
     }
 
-    public function addTextArea($key, $label) {
+    public function addTextArea($key, $label, $isRequired) {
         $inputName = PostConsts::PrefixUserdata.$key;
         $this->html .= '<label for="'.$inputName.'">'.$label.'</label><br />'."\r\n";
-        $this->html .= '<textarea name="'.$inputName.'" /><br />'."\r\n";
+        $this->html .= '<textarea name="'.$inputName.'" '.($isRequired?'required':'').'/><br />'."\r\n";
     }
 
-    public function addText($key, $label) {
+    public function addText($key, $label, $isRequired) {
         $inputName = PostConsts::PrefixUserdata.$key;
         $this->html .= '<label for="'.$inputName.'">'.$label.'</label><br />'."\r\n";
-        $this->html .= '<input type="text" name="'.$inputName.'" /><br />'."\r\n";
+        $this->html .= '<input type="text" name="'.$inputName.'" '.($isRequired?'required':'').'/><br />'."\r\n";
     }
     
     public function createHtml() : string {
