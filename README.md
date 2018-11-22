@@ -55,7 +55,7 @@ A user has successfully filled your form: test
   <tr><td>some_other_information</td><td>This is me</td></tr>
 </table>
 
-### configuration
+### Full configuration
 Configuring PicoMailFormsPlugin is straight forward.
 ~~~~ yaml
 Mail:
@@ -70,7 +70,7 @@ Forms:
     UseBootstrap: true
 ~~~~
 
-## Full form
+### Full form
 ~~~~
 [form]
     [subject]Registration for event XY[/subject]
