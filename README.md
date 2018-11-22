@@ -76,11 +76,12 @@ Forms:
     [subject]Registration for event XY[/subject]
     [success]You successfully registered for the event XY! You're going to receive more information asap[/success]
     [failed]Registration failed. The site administrator has already been informed.[/failed]
-    [text mail]Mail[/text]
+    [text mail required]Mail[/text]
     [text firstname]First name[/text]
     [text lastname]Last name[/text]
     [text]Address[/text]
     [text]Other informations[/text]
+    [textarea required]Message[/textarea]
 [/form]
 ~~~~
 
@@ -88,5 +89,7 @@ Forms:
 - `[success]` Defines the success message shown on the webpage and in the mail
 - `[failed]` The fail message shown on the page when a mail failed
 - `[text]` Will be transformed to a text input, the text inbetween will be used as label
+- `[text required]` Adds required to the input
 - `[text mail]` A usual text input which signalizes PicoMailForms that this is where the user mail is being specified. You can use any label you want. This is the only field required in a form.
 - `[text firstname][text lastname]` The first name and last name of the user. It will be set as receivername of the usermail.
+- `[textarea]` Defines textareas
