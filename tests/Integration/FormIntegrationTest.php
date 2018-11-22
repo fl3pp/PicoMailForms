@@ -29,13 +29,13 @@ class FormIntegrationTest extends TestCase {
         $this->assertSame($expected, $result);
     }
 
-    public function test_RequiredField_AddsRequired() {
+    public function test_RequiredAndMailField_AddsRequired() {
         $setup = new IntegrationTestSetup();
         $testee = $setup->createTestee();
         $inputForm = 
 '[form]
     [subject]testsubject[/subject]
-    [text required]Name[/text]
+    [text required mail]Name[/text]
 [/form]';
 
         $testee->setConfig(array());
@@ -47,6 +47,7 @@ class FormIntegrationTest extends TestCase {
 <input type="hidden" name="meta_subject" value="testsubject" />
 <label for="userdata_name">Name</label><br />
 <input type="text" name="userdata_name" required/><br />
+<input type="hidden" name="meta_mail" value="name" />
 <input type="hidden" name="meta_picomailsend" value="true" />
 <input type="submit" />
 </form>';
