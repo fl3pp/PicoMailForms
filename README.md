@@ -19,7 +19,7 @@ Pull requests are welcome!
 - Custom success / error message
 - Bootstrap forms
 - Error Mail to administrator
-- 93% test coverage
+- 98% test coverage
 
 ### Installation
 Install the plugin using composer: `composer require jflepp/picomailformsplugin`.
