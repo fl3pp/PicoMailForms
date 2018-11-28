@@ -1,6 +1,7 @@
 <?php
 
 class PicoMailFormsPlugin extends AbstractPicoPlugin {
+    const API_VERSION = 2;
     private $plugin;
 
     public function __construct($pico) {
